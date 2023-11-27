@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Time Site</title>
+</head>
+<body>
+    <h1>Current Time:</h1>
+    <p id="currentTime"></p>
+
+    <script>
+        // Fetch the current time from the server and update the HTML content
+        async function fetchTime() {
+            try {
+                const response = await fetch('http://localhost:3000');
+                const data = await response.text();
+                document.getElementById('currentTime').innerText = data;
+            } catch (error) {
+                console.error('Error fetching time:', error);
+            }
+        }
+
+        // Fetch the time when the page loads and update every second
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchTime();
+            setInterval(fetchTime, 1000);
+        });
+    </script>
+</body>
+</html>
